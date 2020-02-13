@@ -9,7 +9,7 @@ def get_city_ID(city_name):
     with open('city.list.json','r') as city_file:
         city_data = json.load(city_file)
     
-    city_ID = [city['id'] for city in city_data if city['name'] == city_name  ]
+    city_ID = [city['id'] for city in city_data if city['name'].casefold() == city_name.casefold()  ]
     return  city_ID[0] if city_ID else 'None'
     
-print(find_city_ID('Huzuf'))
+#print(get_city_ID('tehran'))
