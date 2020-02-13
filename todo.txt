@@ -1,1 +1,5 @@
 in get.py file hide API_KEY information
+
+resolve condition that city name is not in data base
+
+overview for exception
