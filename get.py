@@ -1,6 +1,21 @@
-import requests, cityid
+import requests, json
 
 API_KEY = 'f9f5bd14bbc6b24dc1620b7c1d58b826'
+
+
+def get_city_ID(city_name):
+    """
+    this function take city name and find it's ID from
+    city.list.jason file
+    """
+    
+    with open('city.list.json','r') as city_file:
+        city_data = json.load(city_file)
+    
+    city_ID = [city['id'] for city in city_data if city['name'].casefold() == city_name.casefold()  ]
+    return  city_ID[0] if city_ID else 'None'
+
+
 
 
 def get_current_data(city_name,unitformat='metric',language='en'):
@@ -9,7 +24,7 @@ def get_current_data(city_name,unitformat='metric',language='en'):
     and data language and return dictionary useful data of current weather data  
     '''
     API_URL = 'http://api.openweathermap.org/data/2.5/weather'
-    city_id = cityid.get_city_ID(city_name)
+    city_id = get_city_ID(city_name)
     payload = {'id':city_id,'units':unitformat,'lang':language,"APPID":API_KEY}
     weather = requests.get(API_URL,params=payload).json()
     useful_data = {
@@ -35,7 +50,7 @@ def get_forecast_data(city_name,unitformat='metric',language='en'):
     for 5 days with data every 3 hours 
     '''
     API_URL = 'http://api.openweathermap.org/data/2.5/forecast'
-    city_id = cityid.get_city_ID(city_name)
+    city_id = get_city_ID(city_name)
     payload = {'id':city_id,'units':unitformat,'lang':language,"APPID":API_KEY}
     weather = requests.get(API_URL,params=payload).json()
     
