@@ -1,0 +1,8 @@
+city.list.json
+todo.txt
+test.*
+forecast.json
+main.py
+*.pyc
+.vscode/*.*
+__pycache__/*.*

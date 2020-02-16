@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, time
 
 API_KEY = 'f9f5bd14bbc6b24dc1620b7c1d58b826'
 
@@ -37,6 +37,7 @@ def get_current_data(city_name,unitformat='metric',language='en'):
             'pressure':weather['main']['pressure'],
             'sunrise':weather['sys']['sunrise'],
             'sunset':weather['sys']['sunset'],
+            'time':time.localtime(weather['dt']),
             }
    
     return useful_data
@@ -55,7 +56,7 @@ def get_forecast_data(city_name,unitformat='metric',language='en'):
     weather = requests.get(API_URL,params=payload).json()
     
     
-    useful_data = [(item['dt'],{'temprature':item['main']['temp'],
+    useful_data = [(time.localtime(item['dt']),{'temprature':item['main']['temp'],
                                 'temprature_feel':item['main']['feels_like'],  
                                 'pressure':item['main']['pressure'],
                                 'weather_condition':item['weather'][0]['description'],
